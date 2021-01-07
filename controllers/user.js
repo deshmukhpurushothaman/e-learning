@@ -79,36 +79,21 @@ exports.getUser = (req, res) => {
   return res.json(req.profile);
 };
 
-exports.updateUser = (req, res) => {
-  let user = req.profile;
-  let socialfields = {};
-  let profile = {};
-  console.log(req.body);
-
-  const { youtube, linkedin, bio } = req.body;
-
-  profile = {
-    social_links: {
-      youtube: youtube ? normalize(youtube, { forceHttps: true }) : "",
-      linkedin: linkedin ? normalize(linkedin, { forceHttps: true }) : "",
-    },
-    bio: bio ? bio : "",
-  };
-
-  user = _.merge(user, profile);
-
-  user.updated = Date.now();
-
-  user.save((err, result) => {
-    if (err) {
-      return res.status(400).json({
-        error: err,
-      });
+exports.updateUserProgress = (req, res) => {
+  let data = req.body;
+  let userId = req.params.userId
+  console.log("Update User Progress", data)
+  User.findOneAndUpdate( { _id: userId }, data ,{new: true} ,(err, result)=>{
+    console.log("User Model Method")
+    if(err){
+        console.log("Error in Updating")
+        res.status(500).send(err)
     }
-    user.hashed_password = undefined;
-    user.salt = undefined;
-    res.json(user);
-  });
+    else{
+        console.log("Update Method", result)
+        res.status(200).json(result)
+    }
+});
 };
 
 exports.userPhoto = (req, res, next) => {

@@ -4,7 +4,7 @@ const {
   userBySlug,
   allUsers,
   getUser,
-  updateUser,
+  updateUserProgress,
   deleteUser,
   userPhoto,
   hasAuthorization,
@@ -32,7 +32,9 @@ router.param("userSlug", userBySlug);
 //@path     GET  /api/user/:userSlug
 //@desc     Get user by userSlug
 //@access   Private
-router.get("/:userId", requireSignin, getUser);
+
+
+router.get("/:userId", getUser);
 
 //@path     GET  /api/user/photo/:userId
 //@desc     Get  User Phot
@@ -42,7 +44,9 @@ router.get("/photo/:userId", userPhoto);
 //@path     PUT  /api/user/:userId
 //@desc     Update user Record. Only User can Update his Details
 //@access   PUBLIC
-router.put("/:userId", requireSignin, hasAuthorization, updateUser);
+
+
+router.put("/progress/:userId", updateUserProgress);
 
 //@path     DELTE  /api/user/:userId
 //@desc     Delete user Record. Only User/Admin can Delete the Record

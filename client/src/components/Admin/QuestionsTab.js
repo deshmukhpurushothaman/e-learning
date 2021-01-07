@@ -60,6 +60,7 @@ function QuestionsTab(props) {
   const [formData, setFormData] = React.useState({
     course: "",
     day: "",
+    link: "",
     question: "",
   });
   const [open, setOpen] = React.useState(false);
@@ -535,6 +536,8 @@ function QuestionsTab(props) {
                                    </div>
                                    <div style={{display: 'flex',flexDirection:'column', alignItems:'flex-end',paddingBottom: '40px'}}>
                                    <TextField className="admin-header-box" id="outlined-basic" label="Day" variant="outlined" flexItem onChange={handleChange("day")}/>
+                                   <br />
+                                   <TextField className="admin-header-box" id="outlined-basic" label="Link" variant="outlined" flexItem onChange={handleChange("link")}/>
                                   </div>
                                 </div>
                               </div>

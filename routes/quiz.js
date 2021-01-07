@@ -1,5 +1,5 @@
 const express = require("express");
-const { createForm, getQuiz, getQuizById, updateQuiz } = require("../controllers/FormService")
+const { createForm, getQuiz, getQuizById, updateQuiz, deleteQuiz } = require("../controllers/FormService")
 
 const router = express.Router();
 
@@ -7,6 +7,9 @@ const router = express.Router();
 //router.param("userId", userById);
 
 //Routers
+
+router.put("/update/:quizId", updateQuiz)
+
 router.post("/createquiz",  createForm);
 //router.put("/unlike", unlike);
 
@@ -14,6 +17,8 @@ router.get("/:quizId", getQuizById)
 
 router.get("/courses/:course", getQuiz);
 
-router.put("/update/:quizId", updateQuiz)
+
+
+router.delete("/:quizId", deleteQuiz);
 
 module.exports = router;

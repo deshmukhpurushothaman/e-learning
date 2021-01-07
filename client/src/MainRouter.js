@@ -9,6 +9,7 @@ import EditForm from "./components/Admin/EditForm";
 import UpdateForm from "./components/Admin/UpdateForm";
 import QuizMain from "./components/TakeQuiz/QuizMain";
 import Start from "./components/TakeQuiz/Start"
+import dashboard from "./components/dashboard"
 
 const MainRouter = () => (
     <div>
@@ -27,6 +28,7 @@ const MainRouter = () => (
             <Route exact path="/admin-createpost" component={EditForm}/>
             <Route exact path="/:course/:day/:quizId" component={QuizMain} />
             <Route exact path="/edit/:course/:day/:quizId" component={UpdateForm} />
+            <Route exact path="/dashboard" component={dashboard} />
             
         </Switch>
     </div>

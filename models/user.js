@@ -35,28 +35,14 @@ const userSchema = new mongoose.Schema({
     type: Number,
     default: 0,
   },
-  // profile_status: {
-  //   type: Number,
-  //   default: 1,
-  // },
-  // social_links: {
-  //   youtube: {
-  //     type: String,
-  //   },
-  //   linkedin: {
-  //     type: String,
-  //   },
-  // },
-  // bio: {
-  //   type: String,
-  //   trim: true,
-  // },
-  // slug: {
-  //   type: String,
-  //   index: true,
-  //   require: true,
-  //   unique: true,
-  // },
+  github: {
+    type: String,
+    default: "",
+  },
+  linkedin: {
+    type: String,
+    default: "",
+  },
   created: {
     type: Date,
     default: Date.now,
@@ -64,15 +50,7 @@ const userSchema = new mongoose.Schema({
   updated: {
     type: Date,
   },
-  // photo: {
-  //   type: String,
-  // },
-  // bookmark: [
-  //   {
-  //     type: ObjectId,
-  //     ref: "Post",
-  //   },
-  // ],
+  
 });
 
 userSchema

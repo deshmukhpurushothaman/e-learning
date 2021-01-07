@@ -87,6 +87,21 @@ export default {
           .catch((err) => console.log("Error-PO-20-1-", err));
       },
 
+      deleteQuiz  (quizId)  {
+        return fetch(`${process.env.REACT_APP_API_URL}/api/post/${quizId}`, {
+          method: "DELETE",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            // Authorization: `Bearer ${token}`,
+          },
+        })
+          .then((response) => {
+            return response.json();
+          })
+          .catch((err) => console.log("Error-PO-20-5-", err));
+      },
+
     submitResponse(data){
         console.log(data);
         return axios

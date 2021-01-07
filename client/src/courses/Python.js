@@ -2,16 +2,18 @@ import React, { Component, useState, useEffect } from 'react'
 import Menu from "../core/Menu.js";
 import LockIcon from '@material-ui/icons/Lock';
 import Iframe from 'react-iframe'
-import { getQuizPython } from "./api/index"
-import { Accordion, Card, Button } from 'react-bootstrap'
-import {Link} from "react-router-dom"
+import { getQuizPython, deleteQuiz, getSingleUser } from "./api/index"
+import { isAuthenticated } from "../auth/index"
+import { Accordion, Card, Button, Spinner } from 'react-bootstrap'
+import {Link, Redirect} from "react-router-dom"
 
 class Python extends React.Component {
 
     constructor() {
         super()
         this.state = {
-            quiz: []
+            quiz: [],
+            user: "",
         }
     }
 
@@ -29,15 +31,55 @@ class Python extends React.Component {
           console.log("Quiz",this.state.quiz)          
       }
       
+      init = (userId) => {
+    
+        const token = isAuthenticated().token;
+        getSingleUser(userId, token).then((data) => {
+          //this.setState({ loading: false });
+          if (data.error) {
+            //this.setState({ redirectToSignin: true });
+            console.log(data.error)
+          } else {
+            this.setState({user: data})
+            
+          }
+        });
+      };
+
       componentDidMount(){
           this.loadQuiz();
+          let userId = isAuthenticated().user._id;
+          this.init(userId);
       }
+
+      delete = (quizId) => {
+        //const quizId = this.state.post._id;
+        //const token = isAuthenticated().token;
+        deleteQuiz(quizId).then((data) => {
+          if (data.error) {
+            this.setState({ error: data.error });
+          } else {
+            <Redirect to="/" />
+          }
+        });
+      };
+    
+      deleteConfirmed = (quizId) => {
+        let answer = window.confirm("Are you sure you want to delete your post?");
+        if (answer) {
+          this.delete(quizId);
+        }
+      };
 
       
     renderPage=(quiz)=>{
-        var days = 0;
+        var days = this.state.user.python+1; // +1 is to display the next days task
         console.log("Render Page", quiz)
         var disable = "false";
+        var admin = false;
+        if(this.state.user.role === 400){
+           admin = true;
+        }
         return (
             <div className="App">
             <Menu />
@@ -60,7 +102,7 @@ class Python extends React.Component {
                         //   else
                         //   disable = "false";
                         // }
-                        var con = days<i? "": i;
+                        var con = days<quizzes.day? "": i+1;
                         return(
                <>
 
@@ -69,7 +111,7 @@ class Python extends React.Component {
  <Card>
     <Card.Header>
       <Accordion.Toggle as={Button}  variant="link" eventKey={`${con}`} >
-        Day {i+1} {con === "" && (<LockIcon />)}
+        Day {quizzes.day} {con === "" && (<LockIcon />)}
       </Accordion.Toggle>
     </Card.Header>
     <Accordion.Collapse eventKey={`${con}`}>
@@ -77,31 +119,21 @@ class Python extends React.Component {
       <iframe width="800" height="315" src={`${quizzes.link}`} frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                                     <br />
                                     <button><Link to={`/python/${i+1}/${quizzes._id}`}>Take Quiz</Link></button>
-
+                                    {isAuthenticated() && admin && (
+                                    <>
+                                    <Button onClick={()=>this.deleteConfirmed(quizzes._id)}>Delete Task</Button>
+                                    <button><Link to={`/edit/python/${i+1}/${quizzes._id}`}>Edit Task/Quiz</Link></button>
+                                    </>
+                                    )}
       </Card.Body>
     </Accordion.Collapse>
   </Card>
 </Accordion>
-                        {/* <h2 class="accordion-header" id="headingOne" key={i}>
-                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-                                Day #{i+1}
-                            </button>
-                        </h2>
-                            
-                        <div id="collapseOne" class={`accordion-collapse collapse ${collapse}`} aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                            <div class="accordion-body">
-                        
-                                <iframe width="560" height="315" src={`${quizzes.link}`} frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                                    <br />
-                                    <button><a href="/python/2/quiz">Take Quiz</a></button>
-                            </div>
-                
-                
-                        </div> */}
+                        {console.log("User Logged in", this.state.user)}
                 
                         </>
                  );})}
-                     {/* </div> */}
+                     
                      
                 
                     <br />
@@ -111,55 +143,7 @@ class Python extends React.Component {
               
 
 
-                    {/* <div class="accordion-item">
-                        <h2 class="accordion-header" id="headingOne">
-                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                            Day #1
-                        </button>
-                        </h2>
-                        
-                        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                        <div class="accordion-body">
-                            
-                            <iframe width="900" height="315"
-                                src="https://www.youtube.com/embed/tgbNymZ7vqY">
-                            </iframe>
-                            <br />
-                            <button onClick={this.loadQuiz}>Take Quiz</button>
-                        </div>
-                        </div>
-                    </div>
-                    <br />
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="headingTwo">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                            Day #2 {days>1 == false && (<LockIcon />)}
-                        </button>
-                        </h2>
-                        {days>1 == true && (
-                        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-                        <div class="accordion-body">
-                            <strong>This is the second item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
-                        </div>
-                        </div>
-                        )}
-                    </div>
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="headingThree">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                            Day #3 {days>2 == false && (<LockIcon />)}
-                        </button>
-                        </h2>
-                        {days>2 == true && (
-                        <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
-                        <div class="accordion-body">
-                            <strong>This is the third item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
-                        </div>
-                        </div>
-                        )}
-                    </div> */}
-                 
-                {/* </div> */}
+                    
                 
            
             </div>
@@ -177,7 +161,11 @@ class Python extends React.Component {
         return(
             <div className="container">
                  {/* <h2 className="mt-5 mb-5"> */}
-                    {!quiz.length  ? "Loading..." : this.renderPage(quiz)}
+                    {!quiz.length  ? 
+                    
+                    "Loading..."                    
+                    
+                   : this.renderPage(quiz)}
                      {/* </h2> */}
 
                 {/* {this.renderPage(quiz)} */}

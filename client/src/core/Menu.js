@@ -50,15 +50,13 @@ export default class Menu extends Component {
                 <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Profile</a>
                     <ul class="dropdown-menu">
+                      
+                      <li><a class="dropdown-item" href="/dashboard">Dashboard</a></li>
                       <li><a class="dropdown-item" onClick={() => signout(() => {
                                 <Redirect to="/" />
                                 window.location.reload();
                                 })}>
-                                  Signout</a></li>
-                      <li><a class="dropdown-item" href="#">Another action</a></li>
-                      <li><a class="dropdown-item" href="#">Something else here</a></li>
-                      <li><hr class="dropdown-divider" /></li>
-                      <li><a class="dropdown-item" href="#">Separated link</a></li>
+                                  Signout</a></li>                      
                     </ul>
                   </li>
                 </>

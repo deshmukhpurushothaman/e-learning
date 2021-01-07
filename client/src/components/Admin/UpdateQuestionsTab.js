@@ -61,6 +61,7 @@ function UpdateQuestionsTab(props) {
   const [formData, setFormData] = React.useState({
     course: "",
     day: "",
+    link: "",
     question: "",
   });
   const [open, setOpen] = React.useState(false);
@@ -76,7 +77,7 @@ function UpdateQuestionsTab(props) {
   const handleChange = (name) => (event) => {
     
     setFormData({ ...formData, error: "", [name]: event.target.value });
-    console.log(formData)
+    console.log("Handle Change",formData)
   };
 
   const clipToClipboard = ()=>{
@@ -148,25 +149,26 @@ function UpdateQuestionsTab(props) {
     var data = {
       course: formData.course,
       day: formData.day,
+      link: formData.link,
       question: questions
     }
     console.log(data);
-   formService.createForm(data)
-    .then((result) => {     
-         console.log(result);
-         setQuestions(result.questions)
-        },
-        error => {
-        const resMessage =
-            (error.response &&
-            error.response.data &&
-            error.response.data.message) ||
-            error.message ||
-            error.toString();
-            console.log(resMessage);
-        }
-    );
-
+  //  formService.createForm(data)
+  //   .then((result) => {     
+  //        console.log(result);
+  //        setQuestions(result.questions)
+  //       },
+  //       error => {
+  //       const resMessage =
+  //           (error.response &&
+  //           error.response.data &&
+  //           error.response.data.message) ||
+  //           error.message ||
+  //           error.toString();
+  //           console.log(resMessage);
+  //       }
+  //   );
+    console.log("Update Data", data)
     formService.updateForm(quizId,data)
     .then((result) => {     
          console.log("Successful",result);
@@ -557,6 +559,9 @@ function UpdateQuestionsTab(props) {
                                    </div>
                                    <div style={{display: 'flex',flexDirection:'column', alignItems:'flex-end',paddingBottom: '40px'}}>
                                    <TextField className="admin-header-box" id="outlined-basic" label="Day" value={formData.day} variant="outlined" flexItem onChange={handleChange("day")}/>
+                                   <br />
+                                   <TextField className="admin-header-box" id="outlined-basic" label="Link" value={formData.link} variant="outlined" flexItem onChange={handleChange("link")}/>
+                                 
                                   </div>
                                 </div>
                               </div>
