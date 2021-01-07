@@ -96,6 +96,23 @@ exports.updateUserProgress = (req, res) => {
 });
 };
 
+exports.updateUser = (req, res) => {
+  let data = req.body;
+  let userId = req.body._id
+  console.log("Update User Progress", data)
+  User.findOneAndUpdate( { _id: userId }, data ,{new: true} ,(err, result)=>{
+    console.log("User Model Method")
+    if(err){
+        console.log("Error in Updating")
+        res.status(500).send(err)
+    }
+    else{
+        console.log("Update Method", result)
+        res.status(200).json(result)
+    }
+});
+};
+
 exports.userPhoto = (req, res, next) => {
   if (req.profile.photo.data) {
     res.set(("Content-Type", req.profile.photo.contentType));

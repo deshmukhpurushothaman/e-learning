@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import "../css/dash.css";
 import { getSingleUser } from "./TakeQuiz/api/index"
+import { updateUserProfile } from "./api/user"
 import {isAuthenticated} from "../auth"
 import {Spinner} from "react-bootstrap"
 import avatar from "../images/avatar.jpg";
@@ -30,7 +31,20 @@ const Dashboard= () => {
       }
     });
   };
-
+  
+  const updateUser = () => {
+    let userId = isAuthenticated().user._id;
+    const token = isAuthenticated().token;
+    updateUserProfile(userId, user, token).then((data) => {
+      if(data.error){
+        console.log(data.error)
+      }
+      else{
+        setUser({...user, ...data})
+        window.location.reload();
+      }
+    })
+  }
 
   useEffect(() => {
     let userId = isAuthenticated().user._id;
@@ -66,6 +80,10 @@ const Dashboard= () => {
 
 
           <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+          <div class="panel panel-default">
+            <input id="email" type="text" placeholder="Name" value={user.name} onChange={handleChange("name")}/>
+
+            </div>
             <div class="panel panel-default">
             <input id="email" type="text" placeholder="Github" value={user.github} onChange={handleChange("github")}/>
 
@@ -77,7 +95,7 @@ const Dashboard= () => {
             </div>
             <div class="panel panel-default">
 
-            <button class="btn btn-danger btn-outline btn-lg" onClick>UPDATE</button>
+            <button class="btn btn-danger btn-outline btn-lg" onClick={()=>updateUser()}>UPDATE</button>
               
             </div>
           </div>

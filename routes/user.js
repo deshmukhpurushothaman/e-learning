@@ -8,6 +8,7 @@ const {
   deleteUser,
   userPhoto,
   hasAuthorization,
+  updateUser,
 } = require("../controllers/user");
 const { requireSignin } = require("../controllers/auth");
 
@@ -47,6 +48,8 @@ router.get("/photo/:userId", userPhoto);
 
 
 router.put("/progress/:userId", updateUserProgress);
+
+router.put("/:userId", updateUser)
 
 //@path     DELTE  /api/user/:userId
 //@desc     Delete user Record. Only User/Admin can Delete the Record
