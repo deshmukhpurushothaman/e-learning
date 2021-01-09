@@ -48,6 +48,7 @@ app.use(morgan("dev"));
 app.use("/api/auth", authRoutes);
 app.use("/api/user", userRoutes);
 app.use("/api/quiz", quizRoutes);
+
 //app.use("/api/post", postRoutes);
 //app.use("/api/admin", adminRoutes);
 

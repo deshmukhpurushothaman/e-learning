@@ -2,12 +2,12 @@ import React, { Component, useState, useEffect } from 'react'
 import Menu from "../core/Menu.js";
 import LockIcon from '@material-ui/icons/Lock';
 import Iframe from 'react-iframe'
-import { getQuizPython, deleteQuiz, getSingleUser } from "./api/index"
+import { getQuizDart, deleteQuiz, getSingleUser } from "./api/index"
 import { isAuthenticated } from "../auth/index"
 import { Accordion, Card, Button, Spinner } from 'react-bootstrap'
 import {Link, Redirect} from "react-router-dom"
 
-class Python extends React.Component {
+class Dart extends React.Component {
 
     constructor() {
         super()
@@ -20,7 +20,7 @@ class Python extends React.Component {
     
     
     loadQuiz= async()=>{
-        await getQuizPython().then((data) => {
+        await getQuizDart().then((data) => {
             
             if (data.error) {
                 console.log(data.error)
@@ -76,7 +76,7 @@ class Python extends React.Component {
       
       
     renderPage=(quiz)=>{
-        var days = this.state.user.python +1; // +1 is to display the next days task
+        var days = this.state.user.dart +1; // +1 is to display the next days task
         console.log("Render Page", quiz)
         var disable = "false";
         var admin = false;
@@ -121,11 +121,11 @@ class Python extends React.Component {
       <Card.Body>
       <iframe width="800" height="315" src={`${quizzes.link}`} frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                                     <br />
-                                    <button><Link to={`/python/${i+1}/${quizzes._id}`}>Take Quiz</Link></button>
+                                    <button><Link to={`/dart/${i+1}/${quizzes._id}`}>Take Quiz</Link></button>
                                     {isAuthenticated() && admin && (
                                     <>
                                     <Button onClick={()=>this.deleteConfirmed(quizzes._id)}>Delete Task</Button>
-                                    <button><Link to={`/edit/python/${i+1}/${quizzes._id}`}>Edit Task/Quiz</Link></button>
+                                    <button><Link to={`/edit/dart/${i+1}/${quizzes._id}`}>Edit Task/Quiz</Link></button>
                                     </>
                                     )}
       </Card.Body>
@@ -177,4 +177,4 @@ class Python extends React.Component {
     }
 }
 
-    export default Python;
+    export default Dart;

@@ -55,12 +55,14 @@ export default class Homepage extends Component {
                    <div className="imgBox">
                        <img src={flutter}/>
                    </div>
+                   <a href="/flutter">
                    <div className="details-c">
                      <div className="content">
                      <h2>Flutter</h2>
                      <p>Flutter 30 Day's Challenge</p>
                      </div>
                    </div>
+                   </a>
                </div>
               </div>
               <div className="col-md-4">
@@ -68,12 +70,14 @@ export default class Homepage extends Component {
                    <div className="imgBox">
                        <img src={dart}/>
                    </div>
+                   <a href="/dart">
                    <div className="details-c">
                      <div className="content">
                      <h2>Dart</h2>
                      <p>Dart 30 Day's Challenge</p>
                      </div>
                    </div>
+                   </a>
                 </div>
              </div>
             </div>

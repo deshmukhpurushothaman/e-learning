@@ -17,6 +17,44 @@ export const getQuizPython = () => {
         .catch((err) => console.log("Error-PO-20-2-", err));
 }
 
+export const getQuizFlutter = () => {
+  return fetch(
+      `http://localhost:8000/api/quiz/courses/Flutter`,
+      {
+        method: "GET",
+        headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        }
+        
+      },
+      
+    )
+      .then((response) => {
+        return response.json();
+      })
+      .catch((err) => console.log("Error-PO-20-2-", err));
+}
+
+export const getQuizDart = () => {
+  return fetch(
+      `http://localhost:8000/api/quiz/courses/Dart`,
+      {
+        method: "GET",
+        headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        }
+        
+      },
+      
+    )
+      .then((response) => {
+        return response.json();
+      })
+      .catch((err) => console.log("Error-PO-20-2-", err));
+}
+
 export const deleteQuiz = (quizId) => {
   console.log("Dele Quiz API")
   return fetch(`http://localhost:8000/api/quiz/${quizId}`, {
