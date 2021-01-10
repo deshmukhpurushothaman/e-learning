@@ -93,11 +93,15 @@ const Dashboard= () => {
             
             
             </div>
-            <div class="panel panel-default">
+            
+ 
 
-            <button class="btn btn-danger btn-outline btn-lg" onClick={()=>updateUser()}>UPDATE</button>
+            <button class="btn btn-danger btn-outline btn-lg upd-btn" onClick={()=>updateUser()}>UPDATE</button>
+
+
+            
               
-            </div>
+            
           </div>
         </div>
 }
