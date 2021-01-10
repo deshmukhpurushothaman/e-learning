@@ -134,3 +134,53 @@ exports.deleteUser = (req, res) => {
     return res.json({ message: "User deleted successfully" });
   });
 };
+
+exports.contactUs = (req, res) => {
+  if (!req.body) return res.status(400).json({ message: "No request body" });
+  if (!req.body.email)
+      return res.status(400).json({ message: "No Email in request body" });
+
+  console.log("forgot password finding user with that email");
+  const { email } = req.body;
+  console.log("signin req.body", email);
+  // find the user based on email
+  // User.findOne({ email }, (err, user) => {
+  //     // if err or no user
+  //     if (err || !user)
+  //         return res.status("401").json({
+  //             error: "User with that email does not exist!"
+  //         });
+
+  //     // generate a token with user id and secret
+  //     const token = jwt.sign(
+  //         { _id: user._id, iss: "NODEAPI" },
+  //         JWT_SECRET
+  //     );
+
+      // email data
+      const emailData = {
+          from: `${req.body.from}`,
+          to: "developbestenlist@gmail.com",
+          subject: "Contact Us",
+          text: `${req.body.text}`,
+          html: `<p>${req.body.text}</p>`,
+          name: `${req.body.name}`,
+          phone: `${req.body.phone}`
+      };
+      sendEmail(emailData);
+              return res.status(200).json({
+                  message: `Email Sent!!!`
+              })
+
+      // return user.updateOne({ resetPasswordLink: token }, (err, success) => {
+      //     if (err) {
+      //         return res.json({ message: err });
+      //     } else {
+      //         sendEmail(emailData);
+      //         return res.status(200).json({
+      //             message: `Email has been sent to ${email}. Follow the instructions to reset your password.`
+      //         });
+      //     }
+      // });
+  
+};

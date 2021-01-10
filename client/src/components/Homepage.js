@@ -6,9 +6,60 @@ import python from "../images/python.png";
 import flutter from "../images/flutter.png";
 import dart from "../images/dart.jpg";
 import comingsoon from "../images/comingsoon.png";
+import { contactUs } from "./api/user"
 
 
 export default class Homepage extends Component {
+
+  constructor() {
+    super()
+    this.state = {
+        name: "",
+        email: "",
+        phone: "",
+        text: "",
+    }
+}
+
+handleChange = name => event => {
+  this.setState({ error: "" });
+  
+  this.setState({ [name]: event.target.value, });
+  console.log("Contact us", this.state)
+};
+
+clickSubmit = event => {
+  event.preventDefault();//This will protect default reload
+  //this.setState({location: true})
+
+  // if(this.isValid()) {
+      // const {name, email, password} = this.state
+      // const user = {
+      //     name,
+      //     email,
+      //     password: password || undefined
+      //};
+      
+      // console.log(user);
+
+      // const userId = isAuthenticated().user._id
+      // const token = isAuthenticated().token
+
+      const contact = this.state;
+      console.log("Click submit", contact)      
+      contactUs(contact)
+      .then(data => {
+          console.log(data)
+          
+          if(data.error) this.setState({error: data.error})
+          else {
+              this.setState({ name:"", email:"", phone:"", text: "", redirectToProfile: true})
+          }
+      });
+    
+};
+
+
     render() {
         return (
             <div className="App">
@@ -274,28 +325,28 @@ export default class Homepage extends Component {
                   <div className="row">
                     <div className="col-md-6">
                       <div className="form-group">
-                        <input className="form-control" id="name" type="text" placeholder="Your Name *" required="required" data-validation-required-message="Please enter your name."/>
+                        <input className="form-control" id="name" type="text" placeholder="Your Name *" onChange={this.handleChange("name")} required="required" data-validation-required-message="Please enter your name."/>
                         <p className="help-block text-danger"></p>
                       </div>
                       <div className="form-group">
-                        <input className="form-control" id="email" type="email" placeholder="Your Email *" required="required" data-validation-required-message="Please enter your email address."/>
+                        <input className="form-control" id="email" type="email" placeholder="Your Email *" onChange={this.handleChange("email")} required="required" data-validation-required-message="Please enter your email address."/>
                         <p className="help-block text-danger"></p>
                       </div>
                       <div className="form-group">
-                        <input className="form-control" id="phone" type="tel" placeholder="Your Phone *" required="required" data-validation-required-message="Please enter your phone number."/>
+                        <input className="form-control" id="phone" type="tel" placeholder="Your Phone *" onChange={this.handleChange("phone")} required="required" data-validation-required-message="Please enter your phone number."/>
                         <p className="help-block text-danger"></p>
                       </div>
                     </div>
                     <div className="col-md-6">
                       <div className="form-group">
-                        <textarea className="form-control" id="message" placeholder="Your Message *" required="required" data-validation-required-message="Please enter a message."></textarea>
+                        <textarea className="form-control" id="message" placeholder="Your Message *" onChange={this.handleChange("text")} required="required" data-validation-required-message="Please enter a message."></textarea>
                         <p className="help-block text-danger"></p>
                       </div>
                     </div>
                     <div className="clearfix"></div>
                     <div className="col-lg-12 text-center">
                       <div id="success"></div>
-                      <button id="sendMessageButton" className="btn btn-primary btn-xl text-uppercase" type="submit">Send Message</button>
+                      <button  className="btn btn-primary btn-xl text-uppercase" onClick={this.clickSubmit} type="submit">Send Message</button>
                     </div>
                   </div>
                 </form>

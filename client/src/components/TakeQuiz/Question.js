@@ -65,7 +65,7 @@ const Question = ({ data, onAnswerUpdate, numberOfQuestions, activeQuestion, onS
           
               <div className="row">
                   <div className="column">
-                  <button className="button is-link is-medium is-fullwidth mt-4" onClick={previousClickHandler}>PREVIOUS</button>
+                  {/* <button className="button is-link is-medium is-fullwidth mt-4" onClick={previousClickHandler}>PREVIOUS</button> */}
                   </div>
                   <div className="column">
                   <button className="button is-link is-medium is-fullwidth mt-4" onClick={nextClickHandler}>Next</button>
