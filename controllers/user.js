@@ -3,6 +3,7 @@ const User = require("../models/user");
 const formidable = require("formidable");
 const fs = require("fs");
 const normalize = require("normalize-url");
+const { sendEmail } = require("../helpers");
 
 
 exports.userById = (req, res, next, id) => {
@@ -140,7 +141,7 @@ exports.contactUs = (req, res) => {
   if (!req.body.email)
       return res.status(400).json({ message: "No Email in request body" });
 
-  console.log("forgot password finding user with that email");
+  console.log("Coontact Us");
   const { email } = req.body;
   console.log("signin req.body", email);
   // find the user based on email
@@ -162,10 +163,9 @@ exports.contactUs = (req, res) => {
           from: `${req.body.from}`,
           to: "developbestenlist@gmail.com",
           subject: "Contact Us",
-          text: `${req.body.text}`,
-          html: `<p>${req.body.text}</p>`,
-          name: `${req.body.name}`,
-          phone: `${req.body.phone}`
+          text: `Name: ${req.body.name}.Message:  ${req.body.text}. Phone Number: ${req.body.phone}`,
+          html: `<p>Name: ${req.body.name}.Message:  ${req.body.text}. Phone Number: ${req.body.phone}</p>`,
+          
       };
       sendEmail(emailData);
               return res.status(200).json({

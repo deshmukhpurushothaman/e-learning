@@ -35,7 +35,7 @@ router.param("userSlug", userBySlug);
 //@desc     Get user by userSlug
 //@access   Private
 
-
+router.put("/contact", contactUs)
 router.get("/:userId", getUser);
 
 //@path     GET  /api/user/photo/:userId
@@ -52,7 +52,7 @@ router.put("/progress/:userId", updateUserProgress);
 
 router.put("/:userId", updateUser)
 
-router.put("/contactus", contactUs)
+
 
 //@path     DELTE  /api/user/:userId
 //@desc     Delete user Record. Only User/Admin can Delete the Record

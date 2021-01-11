@@ -208,3 +208,7 @@ input:hover {
   color: #000000;
   font-family: raleway;
 }
+.upd-btn {
+  margin-top: 20px !important;
+  font-size: 15px !important;
+}

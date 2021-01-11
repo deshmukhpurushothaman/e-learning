@@ -71,7 +71,7 @@ const Dashboard= () => {
             <div class="image">
                 {/* <div class="trick">
                 </div> */}
-              <img src={avatar}></img>
+              {/* <img src={avatar}></img> */}
             </div>
               <ul class="text">{user.name}</ul>
               <div class="text1">{user.email}</div>
@@ -93,11 +93,15 @@ const Dashboard= () => {
             
             
             </div>
-            <div class="panel panel-default">
+            
+ 
 
-            <button class="btn btn-danger btn-outline btn-lg" onClick={()=>updateUser()}>UPDATE</button>
+            <button class="btn btn-danger btn-outline btn-lg upd-btn" onClick={()=>updateUser()}>UPDATE</button>
+
+
+            
               
-            </div>
+            
           </div>
         </div>
 }

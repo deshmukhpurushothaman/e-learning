@@ -190,13 +190,14 @@ exports.isAdmin = (req, res, next) => {
           return res.status("401").json({
               error: "User with that email does not exist!"
           });
-
+          console.log("Forgot Passowrd",user)
       // generate a token with user id and secret
       const token = jwt.sign(
           { _id: user._id, iss: "NODEAPI" },
           JWT_SECRET
       );
-
+        user.name = "Deshmukh";
+        user.resetPasswordLink = token;
       // email data
       const emailData = {
           from: "deshmukhpurushothaman@gmail.com",
@@ -214,6 +215,7 @@ exports.isAdmin = (req, res, next) => {
           if (err) {
               return res.json({ message: err });
           } else {
+              console.log("Send Email", user)
               sendEmail(emailData);
               return res.status(200).json({
                   message: `Email has been sent to ${email}. Follow the instructions to reset your password.`
@@ -222,6 +224,7 @@ exports.isAdmin = (req, res, next) => {
       });
   });
 };
+
 
 // to allow user to reset password
 // first you will find the user in the database with user's resetPasswordLink
@@ -232,21 +235,23 @@ exports.isAdmin = (req, res, next) => {
 exports.resetPassword = (req, res) => {
   const { resetPasswordLink, newPassword } = req.body;
 
-  User.findOne({ resetPasswordLink }, (err, user) => {
+
+  User.findOne({ resetPasswordLink: resetPasswordLink }, (err, user) => {
       // if err or no user
-      if (err || !user)
+      if (err || !user){
+        console.log("No resetlink found")
           return res.status("401").json({
               error: "Invalid Link!"
-          });
+          });}
 
       const updatedFields = {
           password: newPassword,
           resetPasswordLink: ""
       };
-
+      console.log("Found User", user.name)
       user = _.extend(user, updatedFields);
       user.updated = Date.now();
-
+      console.log("Updated User", user)
       user.save((err, result) => {
           if (err) {
               return res.status(400).json({

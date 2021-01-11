@@ -14,7 +14,7 @@ export default class Menu extends Component {
           <div className="container">
             <div className="logo-name">
             <img src={Logo}width="40" height="40"  alt=""></img>
-            <a className="navbar-brand js-scroll-trigger" href={`/`}>Best Enlist Learning</a>
+            <a className="navbar-brand js-scroll-trigger" href="/">Best Enlist Learning</a>
             </div>
             <button className="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
              
@@ -26,14 +26,14 @@ export default class Menu extends Component {
                   <a className="nav-link js-scroll-trigger"  href="/">Home</a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link js-scroll-trigger" href="#mylearnings">My learnings</a>
+                  <a className="nav-link js-scroll-trigger" href="/MyLearnings">My learnings</a>
                 </li>
                 {/* <li className="nav-item">
                   <a className="nav-link js-scroll-trigger" href="#tropies">Tropies</a>
                 </li> */}
                
                 <li className="nav-item">
-                  <a className="nav-link js-scroll-trigger" href="#contact">Contact</a>
+                  <a className="nav-link js-scroll-trigger" href="/#contact">Contact</a>
                 </li>
                 
                 {!isAuthenticated() && (

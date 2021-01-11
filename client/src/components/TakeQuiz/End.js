@@ -35,7 +35,7 @@ const {course, day} = useParams();
     setCorrectAnswers(correct);
     let userId = isAuthenticated().user._id;
     const token = isAuthenticated().token;
-    console.log("User Id",userId)
+    //console.log("User Id",userId)
     init(userId)
     // eslint-disable-next-line
   }, []);
@@ -44,10 +44,10 @@ const {course, day} = useParams();
     var score = Math.floor((correctAnswers / data.length) * 100)
     var j=0;
     if(score>=90){
-      j=j+1;
-      console.log("Score is 90", score , course, day, j)
+      //j=j+1;
+      //console.log("Score is 90", score , course, day, j)
     if(course === "python"){
-      console.log("Inside Python")
+      //console.log("Inside Python")
       user.python = parseInt(day);
     }
     else if(course === "flutter"){
@@ -60,11 +60,14 @@ const {course, day} = useParams();
     const token = isAuthenticated().token;
     if(j===0){
       j=j+1;
+      //console.log("Inside j===0")
     updateUserProgress(userId, user, token).then((data)=>{
       if(data.error){
+        //console.log("Eroorr")
         console.log(data.error)
       }
       else{
+        //console.log("User Updated")
         setUser({...user, ...data})
       }
     })}

@@ -1,3 +1,5 @@
+const { body } = require("express-validator/check");
+
 exports.userSignupValidator = (req, res, next) => {
   req.check("name", "Name is required").notEmpty();
   req
@@ -50,12 +52,20 @@ exports.userSigninValidator = (request, res, next) => {
 
 exports.passwordResetValidator = (req, res, next) => {
   // check for password
-  body("newPassword", "Password is required").not().isEmpty();
-  body("newPassword")
+  console.log("New Password", req.body)
+  // body("newPassword", "Password is required").not().isEmpty();
+  // body("newPassword")
+  //   .isLength({ min: 6 })
+  //   .withMessage("Password must be at least 6 chars long")
+  //   .matches(/\d/)
+  //   .withMessage("must contain a number")
+  //   .withMessage("Password must contain a number");
+
+  req
+    .check("newPassword")
     .isLength({ min: 6 })
-    .withMessage("Password must be at least 6 chars long")
+    .withMessage("Password must contain at least 6 characters")
     .matches(/\d/)
-    .withMessage("must contain a number")
     .withMessage("Password must contain a number");
 
   // check for errors

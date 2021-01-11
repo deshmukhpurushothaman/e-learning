@@ -17,7 +17,7 @@ export const updateUserProfile = (userId, data,token) => {
 
 export const contactUs = (data) => {
   console.log("Contact Us api", data)
-  return fetch(`http://localhost:8000/api/user/contactus`,{
+  return fetch(`http://localhost:8000/api/user/contact`,{
     method: "PUT",
     headers: {
       Accept: "application/json",

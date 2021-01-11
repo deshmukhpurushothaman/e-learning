@@ -36,6 +36,25 @@ export const signin = user => {
     .catch(err => console.log(err));
 }
 
+export const forgotPassword = email => {
+    //Post request for the form
+    console.log("Forgot Password",process.env.REACT_APP_API_URL)
+    return fetch(`${process.env.REACT_APP_API_URL}/api/auth/forgot-password`, {
+    method: "PUT",
+    headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+    },
+    body: JSON.stringify({email})
+    
+    })    
+    .then(response => {
+        console.log("response")
+        return response.json();
+    })
+    .catch(err => console.log(err));
+}
+
 
 //JWT 
 export const authenticate = (jwt, next) => {
@@ -75,25 +94,26 @@ export const isAuthenticated = () => {
 
 
 
-export const forgotPassword = email => {
-    console.log("email: ", email);
-    return fetch(`${process.env.REACT_APP_API_URL}/forgot-password/`, {
-        method: "PUT",
-        headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ email })
-    })
-        .then(response => {
-            console.log("forgot password response: ", response);
-            return response.json();
-        })
-        .catch(err => console.log(err));
-};
+// export const forgotPassword = email => {
+//     console.log("email: ", email);
+//     return fetch(`${process.env.REACT_APP_API_URL}/forgot-password/`, {
+//         method: "PUT",
+//         headers: {
+//             Accept: "application/json",
+//             "Content-Type": "application/json"
+//         },
+//         body: JSON.stringify({ email })
+//     })
+//         .then(response => {
+//             console.log("forgot password response: ", response);
+//             return response.json();
+//         })
+//         .catch(err => console.log(err));
+// };
  
 export const resetPassword = resetInfo => {
-    return fetch(`${process.env.REACT_APP_API_URL}/reset-password/`, {
+    console.log("Reset Password API", resetInfo)
+    return fetch(`${process.env.REACT_APP_API_URL}/api/auth/reset-password`, {
         method: "PUT",
         headers: {
             Accept: "application/json",
