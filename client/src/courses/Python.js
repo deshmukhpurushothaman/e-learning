@@ -5,6 +5,7 @@ import { getQuizPython, deleteQuiz, getSingleUser } from "./api/index"
 import { isAuthenticated } from "../auth/index"
 import { Accordion, Card, Button, Spinner } from 'react-bootstrap'
 import {Link, Redirect} from "react-router-dom"
+import "../css/mylearnings.css";
 
 class Python extends React.Component {
 
@@ -111,49 +112,35 @@ class Python extends React.Component {
                         return(
                <>
 
-<Accordion defaultActiveKey="0">
-{console.log("Mapping ", i, con)}
- <Card>
-    <Card.Header>
-      <Accordion.Toggle as={Button}  variant="link" eventKey={`${con}`} >
-        Day {quizzes.day} {con === "" && (<LockIcon />)}
-      </Accordion.Toggle>
-    </Card.Header>
-    <Accordion.Collapse eventKey={`${con}`}>
-      <Card.Body>
-      <iframe width="800" height="315" src={`${quizzes.link}`} frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                                    <br />
-                                    <button><Link to={`/python/${i+1}/${quizzes._id}`}>Take Quiz</Link></button>
-                                    {isAuthenticated() && admin && (
-                                    <>
-                                    <Button onClick={()=>this.deleteConfirmed(quizzes._id)}>Delete Task</Button>
-                                    <button><Link to={`/edit/python/${i+1}/${quizzes._id}`}>Edit Task/Quiz</Link></button>
-                                    </>
-                                    )}
-      </Card.Body>
-    </Accordion.Collapse>
-  </Card>
-</Accordion>
-                        {console.log("User Logged in", this.state.user)}
-                
-                        </>
-                 );})}
-                     
-                     
-                
-                    <br />
-                
-                
-                
-              
-
-
-                    
-                
-           
-            </div>
-            
-            
+                        <Accordion defaultActiveKey="0">
+                        {console.log("Mapping ", i, con)}
+                        <Card className="accordion-header">
+                            <Card.Header >
+                              <Accordion.Toggle as={Button}  variant="link" eventKey={`${con}`} >
+                                Day {quizzes.day} {con === "" && (<LockIcon />)}
+                              </Accordion.Toggle>
+                            </Card.Header>
+                            <Accordion.Collapse eventKey={`${con}`}>
+                              <Card.Body>
+                              <iframe width="700" height="400" src={`${quizzes.link}`} frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                                            <br />
+                                                            <button><Link to={`/python/${i+1}/${quizzes._id}`}>Take Quiz</Link></button>
+                                                            {isAuthenticated() && admin && (
+                                                            <>
+                                                            <Button onClick={()=>this.deleteConfirmed(quizzes._id)}>Delete Task</Button>
+                                                            <button><Link to={`/edit/python/${i+1}/${quizzes._id}`}>Edit Task/Quiz</Link></button>
+                                                            </>
+                                                            )}
+                              </Card.Body>
+                            </Accordion.Collapse>
+                          </Card>
+                        </Accordion>
+                                                
+                                        
+                                                </>
+                                        );})}                
+                    <br />           
+            </div>      
         </div> 
         </section>
     </div>
