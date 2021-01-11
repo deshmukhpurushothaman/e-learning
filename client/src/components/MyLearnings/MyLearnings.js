@@ -27,7 +27,7 @@ class MyLearnings extends Component {
             console.log(data.error)
           } else {
             this.setState({user: data})
-            console.log("My Learn", data)            
+            //console.log("My Learn", data)            
           }
         });
       };
@@ -39,7 +39,7 @@ class MyLearnings extends Component {
     }
     render() {
         const { user } = this.state
-        console.log("My learning2", user)
+        //console.log("My learning2", user)
         return (
             <div className="back-mylearn">
                 <Menu/>

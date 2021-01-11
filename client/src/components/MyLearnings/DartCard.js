@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Redirect } from 'react-router-dom';
 import dart from "../../images/dart.jpg";
 
 export class DartCard extends Component {
@@ -11,7 +12,7 @@ export class DartCard extends Component {
             <div className="card-body text-dark">
                 <h4 className="card-title"><strong>Dart</strong></h4>
                 <p className="card-text text-secondary">
-                    Number of days completed : <strong>8</strong>
+        Number of days completed : <strong>{this.props.user.dart}</strong>
                 </p>
              <button className="btn btn-outline-success">Continue</button>
             </div>

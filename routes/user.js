@@ -18,11 +18,11 @@ const router = express.Router();
 
 //params
 //@desc Fetches the User Information based on the UserID
-router.param("userId", userById);
+router.param("userId", requireSignin, userById);
 
 //params
 //@desc Fetches the User Information based on the userSlug
-router.param("userSlug", userBySlug);
+//router.param("userSlug", userBySlug);
 
 //Routers
 
@@ -38,25 +38,22 @@ router.param("userSlug", userBySlug);
 router.put("/contact", contactUs)
 router.get("/:userId", getUser);
 
-//@path     GET  /api/user/photo/:userId
-//@desc     Get  User Phot
-//@access   PUBLIC
-router.get("/photo/:userId", userPhoto);
-
-//@path     PUT  /api/user/:userId
-//@desc     Update user Record. Only User can Update his Details
-//@access   PUBLIC
 
 
-router.put("/progress/:userId", updateUserProgress);
+//@path     PUT  /api/user/progress/:userId
+//@desc     Update user Record on Courses. Only User can Update his Details
+//@access   Private
 
-router.put("/:userId", updateUser)
+
+router.put("/progress/:userId", requireSignin, updateUserProgress);
+
+router.put("/:userId", requireSignin, updateUser)
 
 
 
 //@path     DELTE  /api/user/:userId
 //@desc     Delete user Record. Only User/Admin can Delete the Record
 //@access   PUBLIC
-router.delete("/:userId", requireSignin, hasAuthorization, deleteUser);
+//router.delete("/:userId", requireSignin, hasAuthorization, deleteUser);
 
 module.exports = router;
