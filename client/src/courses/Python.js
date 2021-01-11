@@ -1,7 +1,6 @@
 import React, { Component, useState, useEffect } from 'react'
 import Menu from "../core/Menu.js";
 import LockIcon from '@material-ui/icons/Lock';
-import Iframe from 'react-iframe'
 import { getQuizPython, deleteQuiz, getSingleUser } from "./api/index"
 import { isAuthenticated } from "../auth/index"
 import { Accordion, Card, Button, Spinner } from 'react-bootstrap'
@@ -41,6 +40,7 @@ class Python extends React.Component {
             console.log(data.error)
           } else {
             this.setState({user: data})
+            console.log("User", data)
             
           }
         });
@@ -49,6 +49,7 @@ class Python extends React.Component {
       componentDidMount(){
           this.loadQuiz();
           let userId = isAuthenticated().user._id;
+          console.log("User id", userId)
           this.init(userId);
           
          
@@ -78,6 +79,7 @@ class Python extends React.Component {
     renderPage=(quiz)=>{
         var days = this.state.user.python +1; // +1 is to display the next days task
         console.log("Render Page", quiz)
+        console.log("User Detaisl", this.state.user)
         var disable = "false";
         var admin = false;
         if(this.state.user.role === 400){
@@ -160,11 +162,11 @@ class Python extends React.Component {
     }
     render() {
 
-        const {quiz} = this.state
+        const {quiz, user} = this.state
         return(
             <div className="container">
                  {/* <h2 className="mt-5 mb-5"> */}
-                    {!quiz.length  ? 
+                    {(!quiz.length) && (!user.length)  ? 
                     
                     "Loading..."                    
                     

@@ -18,7 +18,7 @@ const router = express.Router();
 
 //params
 //@desc Fetches the User Information based on the UserID
-router.param("userId", requireSignin, userById);
+router.param("userId",  userById);
 
 //params
 //@desc Fetches the User Information based on the userSlug
@@ -45,9 +45,9 @@ router.get("/:userId", getUser);
 //@access   Private
 
 
-router.put("/progress/:userId", requireSignin, updateUserProgress);
+router.put("/progress/:userId",  updateUserProgress);
 
-router.put("/:userId", requireSignin, updateUser)
+router.put("/:userId",  updateUser)
 
 
 

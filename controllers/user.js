@@ -19,7 +19,18 @@ exports.userById = (req, res, next, id) => {
   });
 };
 
-
+exports.userBySlug = (req, res, next, userSlug) => {
+  console.log(userSlug);
+  User.findOne({ slug: userSlug }).exec((err, user) => {
+    if (err || !user) {
+      return res.status(400).json({
+        error: "User not found",
+      });
+    }
+    req.profile = user;
+    next();
+  });
+};
 
 exports.hasAuthorization = (req, res, next) => {
   let sameUser = req.profile && req.auth && req.profile._id == req.auth._id;
@@ -35,32 +46,32 @@ exports.hasAuthorization = (req, res, next) => {
   next();
 };
 
-// exports.allUsers = async (req, res) => {
-//   // get current page from req.query or use default value of 1
-//   const currentPage = req.query.page || 1;
+exports.allUsers = async (req, res) => {
+  // get current page from req.query or use default value of 1
+  const currentPage = req.query.page || 1;
 
-//   // return 10 posts per page or per limit
-//   const perPage = parseInt(req.query.limit) || 10;
+  // return 10 posts per page or per limit
+  const perPage = parseInt(req.query.limit) || 10;
 
-//   let filterType = req.query.userId ? { slug: req.query.userId } : {};
+  let filterType = req.query.userId ? { slug: req.query.userId } : {};
 
-//   let totalItems;
-//   const users = await User.find()
-//     .countDocuments()
-//     .then((count) => {
-//       totalItems = count;
-//       return User.find(filterType)
-//         .skip((currentPage - 1) * perPage)
-//         .select("_id username social_links bio slug photo updated created")
-//         .limit(perPage);
-//     })
-//     .then((users) => {
-//       res.json(users);
-//     })
-//     .catch((err) => {
-//       return res.status(400).json({ error: err });
-//     });
-// };
+  let totalItems;
+  const users = await User.find()
+    .countDocuments()
+    .then((count) => {
+      totalItems = count;
+      return User.find(filterType)
+        .skip((currentPage - 1) * perPage)
+        .select("_id username social_links bio slug photo updated created")
+        .limit(perPage);
+    })
+    .then((users) => {
+      res.json(users);
+    })
+    .catch((err) => {
+      return res.status(400).json({ error: err });
+    });
+};
 
 exports.getUser = (req, res) => {
   req.profile.hashed_password = undefined;
@@ -103,27 +114,27 @@ exports.updateUser = (req, res) => {
 });
 };
 
-// exports.userPhoto = (req, res, next) => {
-//   if (req.profile.photo.data) {
-//     res.set(("Content-Type", req.profile.photo.contentType));
-//     return res.send(req.profile.photo.data);
-//   }
-//   next();
-// };
+exports.userPhoto = (req, res, next) => {
+  if (req.profile.photo.data) {
+    res.set(("Content-Type", req.profile.photo.contentType));
+    return res.send(req.profile.photo.data);
+  }
+  next();
+};
 
-// exports.deleteUser = (req, res) => {
-//   let user = req.profile;
-//   console.log("Delete");
-//   user.remove((err, user) => {
-//     if (err) {
-//       console.log(err);
-//       return res.status(400).json({
-//         error: err,
-//       });
-//     }
-//     return res.json({ message: "User deleted successfully" });
-//   });
-// };
+exports.deleteUser = (req, res) => {
+  let user = req.profile;
+  console.log("Delete");
+  user.remove((err, user) => {
+    if (err) {
+      console.log(err);
+      return res.status(400).json({
+        error: err,
+      });
+    }
+    return res.json({ message: "User deleted successfully" });
+  });
+};
 
 exports.contactUs = (req, res) => {
   if (!req.body) return res.status(400).json({ message: "No request body" });
@@ -133,20 +144,44 @@ exports.contactUs = (req, res) => {
   console.log("Coontact Us");
   const { email } = req.body;
   console.log("signin req.body", email);
-  
+  // find the user based on email
+  // User.findOne({ email }, (err, user) => {
+  //     // if err or no user
+  //     if (err || !user)
+  //         return res.status("401").json({
+  //             error: "User with that email does not exist!"
+  //         });
+
+  //     // generate a token with user id and secret
+  //     const token = jwt.sign(
+  //         { _id: user._id, iss: "NODEAPI" },
+  //         JWT_SECRET
+  //     );
+
+      // email data
       const emailData = {
           from: `${req.body.from}`,
           to: "developbestenlist@gmail.com",
           subject: "Contact Us",
-          text: `Name: ${req.body.name}.Message:  ${req.body.text}. Phone Number: ${req.body.phone}`,
-          html: `<p>Name: ${req.body.name}.Message:  ${req.body.text}. Phone Number: ${req.body.phone}. Email: ${req.body.email}</p>`,
-          
+          text: `${req.body.text}`,
+          html: `<p>${req.body.text}</p>`,
+          name: `${req.body.name}`,
+          phone: `${req.body.phone}`
       };
       sendEmail(emailData);
               return res.status(200).json({
                   message: `Email Sent!!!`
               })
 
-      
+      // return user.updateOne({ resetPasswordLink: token }, (err, success) => {
+      //     if (err) {
+      //         return res.json({ message: err });
+      //     } else {
+      //         sendEmail(emailData);
+      //         return res.status(200).json({
+      //             message: `Email has been sent to ${email}. Follow the instructions to reset your password.`
+      //         });
+      //     }
+      // });
   
 };

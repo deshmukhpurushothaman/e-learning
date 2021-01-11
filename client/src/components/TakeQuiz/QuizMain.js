@@ -8,7 +8,7 @@ import End from "./End";
 import Modal from "./Modal";
 import quizData from "./data/quiz.json";
 import "./utils/index";
-// import 'bulma/css/bulma.min.css';
+//import 'bulma/css/bulma.min.css';
 import "../../App.css"
 
 let interval;
