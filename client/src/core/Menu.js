@@ -32,9 +32,9 @@ export default class Menu extends Component {
                   <a className="nav-link js-scroll-trigger" href="#tropies">Tropies</a>
                 </li> */}
                
-                <li className="nav-item">
+                {/* <li className="nav-item">
                   <a className="nav-link js-scroll-trigger" href="/#contact">Contact</a>
-                </li>
+                </li> */}
                 
                 {!isAuthenticated() && (
                   <>

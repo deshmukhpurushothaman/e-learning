@@ -164,7 +164,7 @@ exports.contactUs = (req, res) => {
           to: "developbestenlist@gmail.com",
           subject: "Contact Us",
           text: `Name: ${req.body.name}.Message:  ${req.body.text}. Phone Number: ${req.body.phone}`,
-          html: `<p>Name: ${req.body.name}.Message:  ${req.body.text}. Phone Number: ${req.body.phone}</p>`,
+          html: `<p>Name: ${req.body.name}.Message:  ${req.body.text}. Phone Number: ${req.body.phone}. Email: ${req.body.email}</p>`,
           
       };
       sendEmail(emailData);

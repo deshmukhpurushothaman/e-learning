@@ -8,10 +8,10 @@ export class PythonCard extends Component {
                 <div className="overflow">
                     <img src={python} width="50px" height="250px" alt="Python" className="card-img-top mylearn-course" ></img>
                 </div>
-                <div className="card-body text-dark">
+                <div className="card-body text-dark">{console.log("User", this.props)}
                     <h4 className="card-title"><strong>Python</strong></h4>
                     <p className="card-text text-secondary">
-                        Number of days completed : <strong>5</strong>
+        Number of Tasks completed : <strong>{this.props.user.python}</strong>
                     </p>
                  <button className="btn btn-outline-success">Continue</button>
                 </div>

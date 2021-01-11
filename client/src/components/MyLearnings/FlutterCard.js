@@ -12,7 +12,7 @@ export class FlutterCard extends Component {
                 <div className="card-body text-dark">
                     <h4 className="card-title"><strong>Flutter</strong></h4>
                     <p className="card-text text-secondary">
-                        Number of days completed : <strong>10</strong>
+        Number of Tasks completed : <strong>{this.props.user.flutter}</strong>
                     </p>
                  <button className="btn btn-outline-success btn-con">Continue</button>
                 </div>

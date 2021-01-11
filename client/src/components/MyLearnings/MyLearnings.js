@@ -54,23 +54,20 @@ class MyLearnings extends Component {
                 <div className="container-fluid d-flex justify-content-center">
                  <div className="row">
                      
-                     
                     <div className="col-md-4">
-                    {user.python > 0 ? "" :
-                        <PythonCard />
+                    {user.python === 0 ? "" :
+                        <PythonCard user={user}/>
                     }
                     </div>
                     
-                    
                     <div className="col-md-4">
-                    {user.flutter > 0 ? "" :
+                    {user.flutter === 0 ? "" :
                         <FlutterCard user={user}/>
                     }
                     </div>
                     
-                    
                     <div className="col-md-4">
-                    {user.dart > 0 ? "" :
+                    {user.dart === 0 ? "" :
                         <DartCard user={user}/>
                     }
                     </div>   
