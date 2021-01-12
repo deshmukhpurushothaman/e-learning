@@ -2,15 +2,15 @@ import React, { Component } from 'react'
 import "../css/ForgotPassword.css";
 import Lottie from 'react-lottie'
 import animation from "../images/forgot.json";
-import { forgotPassword } from '../auth/index';
+import { resetPassword } from '../auth/index';
 
 
-class ForgotPassword extends Component {
+class ResetPassword extends Component {
 
     constructor(){
         super ()
         this.state = {
-            email: "",
+            newPassword: "",
             
         }
     }
@@ -18,30 +18,26 @@ class ForgotPassword extends Component {
 handleChange = (name) => (event) => {
     this.setState({error: ""})
     this.setState({[name]: event.target.value});
-    console.log("Email", this.state.email) 
   };
 
   clickSubmit = event => {
     event.preventDefault();
     //this.setState({loading: true})
-    const {email} = this.state
-   console.log("Submitted", email)
+    const {newPassword} = this.state
+   console.log("Submitted", newPassword)
     
-    forgotPassword(email).then(data => {
-        if (data.error) {
-            this.setState({ error: data.error, loading: false });
-        } 
-        
-        else{
-            //Authenticate
-  
-            
-                alert("Check your email for Password reset link")
-                
-            
-            //Redirect
-        }
-    });
+   resetPassword({
+    newPassword: newPassword,
+    resetPasswordLink: this.props.match.params.resetPasswordToken
+}).then(data => {
+    if (data.error) {
+        console.log(data.error);
+        this.setState({ error: data.error });
+    } else {
+        console.log(data.message);
+        this.setState({ message: data.message, newPassword: "" });
+    }
+});
     
   };
 
@@ -55,12 +51,12 @@ handleChange = (name) => (event) => {
             <div class="forgot-cont">
         <form action="#" method="POST" class="forgot-wrap">
         <Lottie className="forgotscreen_img" options={animationContainer} style={{display: 'flex',flexDirection:'column', width: "350px", height: "250px",marginLeft:"135px", marginBottom:"10px"}}/>
-            <h6><strong>Forgot Password</strong></h6>
+            <h6><strong>Reset Password</strong></h6>
             <div class="forgot-box">
-                <input type="text" onChange={this.handleChange("email")} placeholder="Enter Email address" />
+                <input type="text" onChange={this.handleChange("newPassword")} placeholder="Enter New Password" />
             </div>
             <div class="forgot-submit">
-              <button className="forgot-send" onClick={this.clickSubmit}>Send</button>
+              <button className="forgot-send" onClick={this.clickSubmit}>Submit</button>
             </div>
         </form>
     </div>
@@ -68,4 +64,4 @@ handleChange = (name) => (event) => {
     }
 }
 
-export default ForgotPassword;
+export default ResetPassword;

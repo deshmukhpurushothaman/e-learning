@@ -71,7 +71,7 @@ const Dashboard= () => {
             <div class="image">
                 {/* <div class="trick">
                 </div> */}
-              <img src={avatar}></img>
+              {/* <img src={avatar}></img> */}
             </div>
               <ul class="text">{user.name}</ul>
               <div class="text1">{user.email}</div>

@@ -1,5 +1,5 @@
 const express = require('express');
-const { signup, signin, signout, socialLogin } = require('../controllers/auth');
+const { signup, signin, signout, socialLogin, forgotPassword, resetPassword } = require('../controllers/auth');
 const { userSignupValidator, userSigninValidator, } = require('../validator');
 const { userById } = require('../controllers/user');
 // const { forgotPassword, resetPassword } = require('../controllers/auth')
@@ -33,8 +33,9 @@ router.get('/signout', signout);
 router.post("/social-login", socialLogin)
 
 
+
 // password forgot and reset routes
-// router.put("/forgot-password", forgotPassword);
-// router.put("/reset-password", passwordResetValidator, resetPassword);
+router.put("/forgot-password", forgotPassword);
+router.put("/reset-password", passwordResetValidator, resetPassword);
 
 module.exports = router;

@@ -5,6 +5,7 @@ import {signout, isAuthenticated} from '../auth'
 
 export default class Menu extends Component {
 
+  
 
   render() {
     return (
@@ -27,13 +28,13 @@ export default class Menu extends Component {
                 <li className="nav-item">
                   <a className="nav-link js-scroll-trigger" href="/MyLearnings">My learnings</a>
                 </li>
-                <li className="nav-item">
+                {/* <li className="nav-item">
                   <a className="nav-link js-scroll-trigger" href="#tropies">Tropies</a>
-                </li>
+                </li> */}
                
-                <li className="nav-item">
+                {/* <li className="nav-item">
                   <a className="nav-link js-scroll-trigger" href="/#contact">Contact</a>
-                </li>
+                </li> */}
                 
                 {!isAuthenticated() && (
                   <>
@@ -52,6 +53,9 @@ export default class Menu extends Component {
                     <ul class="dropdown-menu">
                       
                       <li><a class="dropdown-item" href="/dashboard">Dashboard</a></li>
+                      {(isAuthenticated().user.role === 400) && <li><a class="dropdown-item" href="/admin-createpost">Create Quiz</a></li>
+                      }
+
                       <li><a class="dropdown-item" onClick={() => signout(() => {
                                 <Redirect to="/" />
                                 window.location.reload();

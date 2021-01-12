@@ -146,7 +146,8 @@ function QuestionsTab(props) {
     var data = {
       course: formData.course,
       day: formData.day,
-      question: questions
+      question: questions,
+      link: formData.link
     }
     console.log(data);
    formService.createForm(data)

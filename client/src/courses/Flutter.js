@@ -1,12 +1,13 @@
 import React, { Component, useState, useEffect } from 'react'
 import Menu from "../core/Menu.js";
 import LockIcon from '@material-ui/icons/Lock';
-import { getQuizPython, deleteQuiz, getSingleUser } from "./api/index"
+import Iframe from 'react-iframe'
+import { getQuizFlutter, deleteQuiz, getSingleUser } from "./api/index"
 import { isAuthenticated } from "../auth/index"
 import { Accordion, Card, Button, Spinner } from 'react-bootstrap'
 import {Link, Redirect} from "react-router-dom"
 
-class Python extends React.Component {
+class Flutter extends React.Component {
 
     constructor() {
         super()
@@ -19,7 +20,7 @@ class Python extends React.Component {
     
     
     loadQuiz= async()=>{
-        await getQuizPython().then((data) => {
+        await getQuizFlutter().then((data) => {
             
             if (data.error) {
                 console.log(data.error)
@@ -40,7 +41,6 @@ class Python extends React.Component {
             console.log(data.error)
           } else {
             this.setState({user: data})
-            console.log("User", data)
             
           }
         });
@@ -49,7 +49,6 @@ class Python extends React.Component {
       componentDidMount(){
           this.loadQuiz();
           let userId = isAuthenticated().user._id;
-          console.log("User id", userId)
           this.init(userId);
           
          
@@ -77,9 +76,8 @@ class Python extends React.Component {
       
       
     renderPage=(quiz)=>{
-        var days = this.state.user.python +1; // +1 is to display the next days task
+        var days = this.state.user.flutter +1; // +1 is to display the next days task
         console.log("Render Page", quiz)
-        console.log("User Detaisl", this.state.user)
         var disable = "false";
         var admin = false;
         if(this.state.user.role === 400){
@@ -123,11 +121,11 @@ class Python extends React.Component {
       <Card.Body>
       <iframe width="800" height="315" src={`${quizzes.link}`} frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                                     <br />
-                                    <button><Link to={`/python/${i+1}/${quizzes._id}`}>Take Quiz</Link></button>
+                                    <button><Link to={`/flutter/${i+1}/${quizzes._id}`}>Take Quiz</Link></button>
                                     {isAuthenticated() && admin && (
                                     <>
                                     <Button onClick={()=>this.deleteConfirmed(quizzes._id)}>Delete Task</Button>
-                                    <button><Link to={`/edit/python/${i+1}/${quizzes._id}`}>Edit Task/Quiz</Link></button>
+                                    <button><Link to={`/edit/flutter/${i+1}/${quizzes._id}`}>Edit Task/Quiz</Link></button>
                                     </>
                                     )}
       </Card.Body>
@@ -162,11 +160,11 @@ class Python extends React.Component {
     }
     render() {
 
-        const {quiz, user} = this.state
+        const {quiz} = this.state
         return(
             <div className="container">
                  {/* <h2 className="mt-5 mb-5"> */}
-                    {(!quiz.length) && (!user.length)  ? 
+                    {!quiz.length  ? 
                     
                     "Loading..."                    
                     
@@ -179,4 +177,4 @@ class Python extends React.Component {
     }
 }
 
-    export default Python;
+    export default Flutter;
