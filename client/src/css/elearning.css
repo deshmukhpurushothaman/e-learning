@@ -753,3 +753,6 @@ ul.social-buttons li a:focus,
 ul.social-buttons li a:hover {
   background-color: #fed136;
 }
+.task-box {
+  margin-top: 20px !important;
+}

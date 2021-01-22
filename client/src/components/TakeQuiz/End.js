@@ -2,12 +2,20 @@ import React, { useEffect, useState } from 'react';
 import {useParams} from "react-router-dom"
 import { isAuthenticated } from '../../auth';
 import { getSingleUser, updateUserProgress } from "./api/index"
-
+import Menu from "../../core/Menu";
+import Lottie from 'react-lottie'
+import animation from "../../images/success.json";
 import { formatTime } from "./utils/index";
 
 const End = ({ results, data, onReset, onAnswersCheck, time }) => {
   const [correctAnswers, setCorrectAnswers] = useState(0);
   const [user, setUser]= useState();
+  const animationContainer = {
+    loop: true,
+    autoplay: true,
+    animationData: animation,
+  };
+  
 
 const {course, day} = useParams();
   const init = (userId) => {
@@ -76,22 +84,55 @@ const {course, day} = useParams();
 
 
   return(
-    <div className="card">
-      {user === undefined ? "Loading":
-      <div className="card-content">{console.log("User", user)}
-        <div className="content">
-          <h3>Your results</h3>
-          <p>{correctAnswers} of {data.length}</p>
-          <p><strong>{Math.floor((correctAnswers / data.length) * 100)}%</strong></p>
+//     <div>
+//        <Menu/>
+
+//     <div className="card">
+//       {user === undefined ? "Loading":
+//       <div className="card-content">{console.log("User", user)}
+//         <div className="content">
+//           <h3>Your results</h3>
+//           <p>{correctAnswers} of {data.length}</p>
+//           <p><strong>{Math.floor((correctAnswers / data.length) * 100)}%</strong></p>
           
-          {setProgress()}
-          <p><strong>Your time:</strong> {formatTime(time)}</p>
-          {/* <button className="button is-info mr-2" onClick={onAnswersCheck}>Check your answers</button> */}
-          <button className="button is-success" onClick={onReset}>Try again</button>
-        </div>
-      </div>
-}
-    </div>
+//           {setProgress()}
+//           <p><strong>Your time:</strong> {formatTime(time)}</p>
+//           <button className="btn btn-primary" onClick={onReset}><i class="fa">&#xf021;</i><span>  </span>Try again</button>
+//         </div>
+//       </div>
+// }
+//     </div>
+//     </div>
+
+<div className="start-dg">
+    
+<Menu/>
+
+
+<div className="card start-box">
+
+   <div className="start-content">
+     {user === undefined ?
+     <div><h3>Loading....</h3></div> :
+       <>
+            <h2><strong>Your results</strong></h2>
+                          <div className="start-book">
+                            <Lottie options={animationContainer} style={{ width: "380px", height: "280px", marginBottom: "70px", marginTop: "70px", marginLeft: "10px"}}/>
+                          </div>      
+                            <p>{correctAnswers} of {data.length}</p>
+                              <p>{Math.floor((correctAnswers / data.length) * 100)}%</p>
+                              {setProgress()}
+     
+                              <p><strong>Your time taken: </strong> {formatTime(time)}</p>
+                              <button className="btn btn-primary" onClick={onReset}><i class="fa">&#xf021;</i><span>  </span>Try again</button>                      
+    
+      </>
+     }
+   </div>
+
+</div>
+
+</div>
   );
 }
 

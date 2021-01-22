@@ -71,8 +71,8 @@ handleChange = (name) => (event) => {
                         </div>
     
                         <div class="form__div-input">
-                            <label for="" class="form__label">Email address</label>
-                            <input type="text" class="form__input" onChange={this.handleChange("email")}/>
+                        
+                            <input type="text" class="form__input" onChange={this.handleChange("email")} placeholder="Email address"/>
                         </div>
                     </div>
     
@@ -82,8 +82,7 @@ handleChange = (name) => (event) => {
                         </div>
     
                         <div class="form__div-input">
-                            <label for="" class="form__label">Password</label>
-                            <input type="password" class="form__input"onChange={this.handleChange("password")}/>
+                            <input type="password" class="form__input"onChange={this.handleChange("password")} placeholder="Password"/>
                         </div>
                     </div>
                     <a href="/ForgotPassword" class="form__forgot">Forgot Password?</a>

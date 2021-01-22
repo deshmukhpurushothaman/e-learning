@@ -1,10 +1,20 @@
 import React, { useState, useEffect, useRef } from 'react';
-// import Flipclock from "react-simple-flipclock";
+import Menu from "../../core/Menu";
+import Lottie from 'react-lottie'
+import animation from "../../images/quiz-takequiz.json";
 
 const Question = ({ data, onAnswerUpdate, numberOfQuestions, activeQuestion, onSetActiveQuestion, onSetStep }) => {
   const [selected, setSelected] = useState('');
   const [error, setError] = useState('');
   const radiosWrapper = useRef();
+
+  const animationContainer = {
+    loop: true,
+    autoplay: true,
+    animationData: animation,
+  };
+  
+  
 
   useEffect(() => {
     const findCheckedInput = radiosWrapper.current.querySelector('input:checked');
@@ -21,9 +31,7 @@ const Question = ({ data, onAnswerUpdate, numberOfQuestions, activeQuestion, onS
   }
   
   const nextClickHandler = (e) => {
-    // if(selected === '') {
-    //   return setError('Please select one option!');
-    // }
+  
     onAnswerUpdate(prevState => [...prevState, { q: data.question, a: selected }]);
     setSelected('');
     if(activeQuestion < numberOfQuestions - 1) {
@@ -41,40 +49,55 @@ const Question = ({ data, onAnswerUpdate, numberOfQuestions, activeQuestion, onS
 
   return(
      <div> 
-        <div className="timer">
-          {/* <Flipclock 
-        seconds={2*60} 
-        dark={true} 
-        fontSize={30} 
-    /> */}
-    </div>
-    <div className="card">
-         
-      <div className="card-content">
-        <div className="content">
-          <h2 className="mb-5">{data.questionText}</h2>
+        {/* <Menu/> */}
+
+  <div class="card_section">
+  <div class="container">
+    <div className="row">
+      <div className="col im-quiz">
+      <Lottie options={animationContainer} style={{ width: "700px", height: "550px"}}/>
+      </div>
+      <div className="col">
+
+      <div class="row">
+        <div class="card_container-q">
+          <div class="text-center card_details">
+          <h3><strong>{data.questionText}</strong></h3>
+          </div>
+        </div>
+      </div>
+      {/* {data.questionText} */}
+      <div class="row">
+        <div class="card_container">
+          <div class="text-center card_details">
           <div className="control" ref={radiosWrapper}>
             {data.options.map((choice, i) => (
-              <label className="radio has-background-light" key={i}>
-                <input type="radio" name="answer" value={choice.optionText} onChange={changeHandler} />
-                {choice.optionText}
-              </label>
+         
+              <div>
+              <label class="takequiz-radio" key={i}>
+                <strong>{choice.optionText}</strong>
+              <input type="radio" name="answer" value={choice.optionText} onChange={changeHandler}/>
+              <span class="checkmark"></span>
+            </label>
+            </div>
+            
             ))}
           </div>
           {error && <div className="has-text-danger">{error}</div>}
-          
-              <div className="row">
-                  <div className="column">
-                  {/* <button className="button is-link is-medium is-fullwidth mt-4" onClick={previousClickHandler}>PREVIOUS</button> */}
-                  </div>
-                  <div className="column">
-                  <button className="button is-link is-medium is-fullwidth mt-4" onClick={nextClickHandler}>Next</button>
-                  </div>
-              </div>
+          <button className="btn btn-primary next" onClick={nextClickHandler}>Next &raquo;</button>
+                
+          </div>
         </div>
       </div>
     </div>
+   
+        </div>
+      </div>    
+      </div>
     </div>
+ 
+   
+   
   );
 }
 

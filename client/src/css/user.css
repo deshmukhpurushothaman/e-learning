@@ -250,3 +250,8 @@ a {
     justify-self: center;
   }
 }
+input::placeholder {
+  color: var(--text-color) !important;
+  font-size: 17px !important;
+  margin-top: -10px !important;
+}

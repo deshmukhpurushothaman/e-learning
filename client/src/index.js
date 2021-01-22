@@ -7,7 +7,6 @@ import 'mdbreact/dist/css/mdb.css';
 import "./App.css";
 import "./css/elearning.css"
 import "./css/bootstrap-main.css";
-// import "./css/main.css";
 
 
 ReactDOM.render(<App />, document.getElementById("root"));

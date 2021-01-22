@@ -5,8 +5,6 @@ import {signout, isAuthenticated} from '../auth'
 
 export default class Menu extends Component {
 
-  
-
   render() {
     return (
       <div>

@@ -40,7 +40,7 @@ const MainRouter = () => (
             <PrivateRoute exact path="/python" component={Python} />
             <PrivateRoute exact path="/flutter" component={Flutter} />
             <PrivateRoute exact path="/dart" component={Dart} />
-            <AdminRoute exact path="/admin-createpost" component={EditForm}/>
+            <Route exact path="/admin-createpost" component={EditForm}/>
             <PrivateRoute exact path="/:course/:day/:quizId" component={QuizMain} />
             <AdminRoute exact path="/edit/:course/:day/:quizId" component={UpdateForm} />
             <PrivateRoute exact path="/dashboard" component={dashboard} />

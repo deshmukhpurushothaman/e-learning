@@ -31,3 +31,13 @@
 }
 .btn-con:hover {
 }
+
+/* .accordion {
+  width: 100% !important ;
+  color: green !important;
+  background-color: blue !important;
+} */
+
+.accordion-header {
+  width: 100% !important;
+}
