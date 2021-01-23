@@ -18,14 +18,14 @@ class ForgotPassword extends Component {
 handleChange = (name) => (event) => {
     this.setState({error: ""})
     this.setState({[name]: event.target.value});
-    console.log("Email", this.state.email) 
+    //console.log("Email", this.state.email) 
   };
 
   clickSubmit = event => {
     event.preventDefault();
     //this.setState({loading: true})
     const {email} = this.state
-   console.log("Submitted", email)
+   //console.log("Submitted", email)
     
     forgotPassword(email).then(data => {
         if (data.error) {

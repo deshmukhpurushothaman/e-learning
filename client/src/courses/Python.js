@@ -50,7 +50,7 @@ class Python extends React.Component {
             console.log(data.error)
           } else {
             this.setState({user: data})
-            console.log("User", data)
+            //console.log("User", data)
             
           }
         });
@@ -59,7 +59,7 @@ class Python extends React.Component {
       componentDidMount(){
           this.loadQuiz();
           let userId = isAuthenticated().user._id;
-          console.log("User id", userId)
+          //console.log("User id", userId)
           this.init(userId);
           
          
@@ -88,12 +88,12 @@ class Python extends React.Component {
       
     renderPage=(quiz)=>{
         var days = this.state.user.python +1; // +1 is to display the next days task
-        console.log("Render Page", quiz)
-        console.log("User Detaisl", this.state.user)
+        //console.log("Render Page", quiz)
+        //console.log("User Detaisl", this.state.user)
         var disable = "false";
         var admin = false;
         if(this.state.user.role === 400){
-           admin = true;
+           admin = 400;
         }
         return (
             <div className="App">
@@ -109,12 +109,15 @@ class Python extends React.Component {
                     {quiz.map((quizzes, i)=>{
                 
                         var con = days<quizzes.day? "": i+1;
+                        if(admin === 400){
+                          con = i+1;
+                        }
                         return(
               
              <div className="task-box">
               
                         <Accordion defaultActiveKey="0">
-                        {console.log("Mapping ", i, con)}
+                        {/* {console.log("Mapping ", i, con)} */}
                         <Card className="accordion-header">
                             <Card.Header >
                               <Accordion.Toggle as={Button}  variant="link" eventKey={`${con}`} >

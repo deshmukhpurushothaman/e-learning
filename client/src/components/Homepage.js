@@ -25,7 +25,7 @@ handleChange = name => event => {
   this.setState({ error: "" });
   
   this.setState({ [name]: event.target.value, });
-  console.log("Contact us", this.state)
+  //console.log("Contact us", this.state)
 };
 
 clickSubmit = event => {
@@ -46,13 +46,15 @@ clickSubmit = event => {
       // const token = isAuthenticated().token
 
       const contact = this.state;
-      console.log("Click submit", contact)      
+      //console.log("Click submit", contact)      
       contactUs(contact)
       .then(data => {
-          console.log(data)
+          //console.log(data)
           
-          if(data.error) this.setState({error: data.error})
-          else {
+          if(data.error){ 
+            this.setState({error: data.error})
+            alert("Message sent to the organization.");
+      }else {
               this.setState({ name:"", email:"", phone:"", text: "", redirectToProfile: true})
           }
       });

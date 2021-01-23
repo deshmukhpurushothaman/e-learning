@@ -74,7 +74,7 @@ function QuestionsTab(props) {
   const handleChange = (name) => (event) => {
     
     setFormData({ ...formData, error: "", [name]: event.target.value });
-    console.log(formData)
+    //console.log(formData)
   };
 
   const clipToClipboard = ()=>{
@@ -142,18 +142,19 @@ function QuestionsTab(props) {
   
 
   function saveQuestions(){
-    console.log("auto saving questions initiated");
+    //console.log("auto saving questions initiated");
     var data = {
       course: formData.course,
       day: formData.day,
       question: questions,
       link: formData.link
     }
-    console.log(data);
+    //console.log(data);
    formService.createForm(data)
     .then((result) => {     
-         console.log(result);
+         //console.log(result);
          setQuestions(result.questions)
+        
         },
         error => {
         const resMessage =
@@ -165,7 +166,7 @@ function QuestionsTab(props) {
             console.log(resMessage);
         }
     );
-  
+    alert("Quiz created");
     
   }
 
@@ -219,21 +220,21 @@ function QuestionsTab(props) {
     optionsOfQuestion[i].options[j].optionText = text;
     //newMembersEmail[i]= email;
       setQuestions(optionsOfQuestion);
-      console.log(questions)
+      //console.log(questions)
   }
 
   function handleAnswerValue(text, i){
     var optionsOfQuestion = [...questions];
     optionsOfQuestion[i].answer = text;
       setQuestions(optionsOfQuestion);
-      console.log(questions)
+      //console.log(questions)
   }
 
   function handleQuestionValue(text, i){
     var optionsOfQuestion = [...questions];
     optionsOfQuestion[i].questionText = text;
       setQuestions(optionsOfQuestion);
-      console.log(questions)
+      //console.log(questions)
   }
 
  function onDragEnd(result) {
@@ -280,7 +281,7 @@ function QuestionsTab(props) {
     if(optionsOfQuestion[i].options.length > 1){
       optionsOfQuestion[i].options.splice(j, 1);
       setQuestions(optionsOfQuestion)
-      console.log(i + "__" + j);
+      //console.log(i + "__" + j);
     }   
   }
 

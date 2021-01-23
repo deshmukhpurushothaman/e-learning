@@ -86,11 +86,11 @@ class Flutter extends React.Component {
       
     renderPage=(quiz)=>{
         var days = this.state.user.flutter +1; // +1 is to display the next days task
-        console.log("Render Page", quiz)
+        //console.log("Render Page", quiz)
         var disable = "false";
         var admin = false;
         if(this.state.user.role === 400){
-           admin = true;
+           admin = 400;
         }
         return (
             <div className="App">
@@ -106,11 +106,14 @@ class Flutter extends React.Component {
                     {quiz.map((quizzes, i)=>{
                      
                         var con = days<quizzes.day? "": i+1;
+                        if(admin === 400){
+                          con = i+1;
+                        }
                         return(
                           <div className="task-box">
 
 <Accordion defaultActiveKey="0">
-{console.log("Mapping ", i, con)}
+{/* {console.log("Mapping ", i, con)} */}
  <Card className="accordion-header">
     <Card.Header>
       <Accordion.Toggle as={Button}  variant="link" eventKey={`${con}`} >
@@ -132,7 +135,7 @@ class Flutter extends React.Component {
     </Accordion.Collapse>
   </Card>
 </Accordion>
-                        {console.log("User Logged in", this.state.user)}
+                        {/* {console.log("User Logged in", this.state.user)} */}
                 
                         </div>
                  );})}

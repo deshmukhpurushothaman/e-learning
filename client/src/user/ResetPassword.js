@@ -24,7 +24,7 @@ handleChange = (name) => (event) => {
     event.preventDefault();
     //this.setState({loading: true})
     const {newPassword} = this.state
-   console.log("Submitted", newPassword)
+   //console.log("Submitted", newPassword)
     
    resetPassword({
     newPassword: newPassword,
@@ -38,7 +38,7 @@ handleChange = (name) => (event) => {
         this.setState({ message: data.message, newPassword: "" });
     }
 });
-    
+    alert("Password has been reset. Please login!!!");
   };
 
     render() {

@@ -77,7 +77,7 @@ function UpdateQuestionsTab(props) {
   const handleChange = (name) => (event) => {
     
     setFormData({ ...formData, error: "", [name]: event.target.value });
-    console.log("Handle Change",formData)
+    //console.log("Handle Change",formData)
   };
 
   const clipToClipboard = ()=>{
@@ -145,14 +145,14 @@ function UpdateQuestionsTab(props) {
   
 
   function saveQuestions(){
-    console.log("auto saving questions initiated");
+    //console.log("auto saving questions initiated");
     var data = {
       course: formData.course,
       day: formData.day,
       link: formData.link,
       question: questions
     }
-    console.log(data);
+    //console.log(data);
   //  formService.createForm(data)
   //   .then((result) => {     
   //        console.log(result);
@@ -168,10 +168,10 @@ function UpdateQuestionsTab(props) {
   //           console.log(resMessage);
   //       }
   //   );
-    console.log("Update Data", data)
+    //console.log("Update Data", data)
     formService.updateForm(quizId,data)
     .then((result) => {     
-         console.log("Successful",result);
+         //console.log("Successful",result);
          if(result !== undefined){
          setQuestions(result.questions)
          }
@@ -186,7 +186,7 @@ function UpdateQuestionsTab(props) {
             console.log(resMessage);
         }
     );
-  
+    alert("Quiz updated");
     
   }
 
@@ -240,21 +240,21 @@ function UpdateQuestionsTab(props) {
     optionsOfQuestion[i].options[j].optionText = text;
     //newMembersEmail[i]= email;
       setQuestions(optionsOfQuestion);
-      console.log(questions)
+      //console.log(questions)
   }
 
   function handleAnswerValue(text, i){
     var optionsOfQuestion = [...questions];
     optionsOfQuestion[i].answer = text;
       setQuestions(optionsOfQuestion);
-      console.log(questions)
+      //console.log(questions)
   }
 
   function handleQuestionValue(text, i){
     var optionsOfQuestion = [...questions];
     optionsOfQuestion[i].questionText = text;
       setQuestions(optionsOfQuestion);
-      console.log(questions)
+     //console.log(questions)
   }
 
  function onDragEnd(result) {
@@ -301,7 +301,7 @@ function UpdateQuestionsTab(props) {
     if(optionsOfQuestion[i].options.length > 1){
       optionsOfQuestion[i].options.splice(j, 1);
       setQuestions(optionsOfQuestion)
-      console.log(i + "__" + j);
+      //console.log(i + "__" + j);
     }   
   }
 
@@ -521,7 +521,7 @@ function UpdateQuestionsTab(props) {
             >
               {/* {loadingFormData ? (<CircularProgress />):""} */}
               
-              <h1 className="admin-create-quiz-title"><strong>Update Quiz</strong></h1>{console.log("Form Data", formData)}
+              <h1 className="admin-create-quiz-title"><strong>Update Quiz</strong></h1>
               
              <Grid item xs={12} sm={7} style={{width: '100%'}}>
                  

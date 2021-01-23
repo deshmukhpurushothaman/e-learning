@@ -14,7 +14,7 @@ const Dashboard= () => {
   const handleChange = (name) => (event) => {
     
     setUser({ ...user, error: "", [name]: event.target.value });
-    console.log(user)
+    //console.log(user)
   };
 
   const init = (userId) => {
@@ -24,7 +24,7 @@ const Dashboard= () => {
       //this.setState({ loading: false });
       if (data.error) {
         //this.setState({ redirectToSignin: true });
-        console.log(data.error)
+        console.log("error")
       } else {
         setUser({...user, ...data});
         
@@ -49,7 +49,7 @@ const Dashboard= () => {
   useEffect(() => {
     let userId = isAuthenticated().user._id;
     const token = isAuthenticated().token;
-    console.log("User Id",userId)
+    //console.log("User Id",userId)
     init(userId)
     // eslint-disable-next-line
   }, []);
