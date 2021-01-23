@@ -7,7 +7,7 @@ const { sendEmail } = require("../helpers");
 
 
 exports.userById = (req, res, next, id) => {
-  console.log("User By Id", id)
+  //console.log("User By Id", id)
   User.findById(id).exec((err, user) => {
     if (err || !user) {
       return res.status(400).json({
@@ -20,7 +20,7 @@ exports.userById = (req, res, next, id) => {
 };
 
 exports.userBySlug = (req, res, next, userSlug) => {
-  console.log(userSlug);
+  //console.log(userSlug);
   User.findOne({ slug: userSlug }).exec((err, user) => {
     if (err || !user) {
       return res.status(400).json({
@@ -76,22 +76,22 @@ exports.allUsers = async (req, res) => {
 exports.getUser = (req, res) => {
   req.profile.hashed_password = undefined;
   req.profile.salt = undefined;
-  console.log("User", req.profile)
+  //console.log("User", req.profile)
   return res.json(req.profile);
 };
 
 exports.updateUserProgress = (req, res) => {
   let data = req.body;
   let userId = req.params.userId
-  console.log("Update User Progress", data)
+  //console.log("Update User Progress", data)
   User.findOneAndUpdate( { _id: userId }, data ,{new: true} ,(err, result)=>{
-    console.log("User Model Method")
+    //console.log("User Model Method")
     if(err){
-        console.log("Error in Updating")
+        //console.log("Error in Updating")
         res.status(500).send(err)
     }
     else{
-        console.log("Update Method", result)
+        //console.log("Update Method", result)
         res.status(200).json(result)
     }
 });
@@ -100,15 +100,15 @@ exports.updateUserProgress = (req, res) => {
 exports.updateUser = (req, res) => {
   let data = req.body;
   let userId = req.body._id
-  console.log("Update User Progress", data)
+  //console.log("Update User Progress", data)
   User.findOneAndUpdate( { _id: userId }, data ,{new: true} ,(err, result)=>{
-    console.log("User Model Method")
+    //console.log("User Model Method")
     if(err){
-        console.log("Error in Updating")
+        //console.log("Error in Updating")
         res.status(500).send(err)
     }
     else{
-        console.log("Update Method", result)
+        //console.log("Update Method", result)
         res.status(200).json(result)
     }
 });
@@ -124,10 +124,10 @@ exports.userPhoto = (req, res, next) => {
 
 exports.deleteUser = (req, res) => {
   let user = req.profile;
-  console.log("Delete");
+  //console.log("Delete");
   user.remove((err, user) => {
     if (err) {
-      console.log(err);
+      //console.log(err);
       return res.status(400).json({
         error: err,
       });
@@ -141,9 +141,9 @@ exports.contactUs = (req, res) => {
   if (!req.body.email)
       return res.status(400).json({ message: "No Email in request body" });
 
-  console.log("Coontact Us");
+  //console.log("Coontact Us");
   const { email } = req.body;
-  console.log("signin req.body", email);
+  //console.log("signin req.body", email);
   // find the user based on email
   // User.findOne({ email }, (err, user) => {
   //     // if err or no user

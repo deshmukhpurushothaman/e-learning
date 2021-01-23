@@ -5,6 +5,13 @@ import dart from "../../images/dart.jpg";
 export class DartCard extends Component {
     render() {
         return (
+            <div>
+                
+            {this.props.user === undefined   ? 
+                    
+                    ""                 
+                    
+                   : 
             <div className="card text-center">
             <div className="overflow">
                 <img src={dart} width="50px" height="250px" alt="Dart" className="card-img-top" ></img>
@@ -14,10 +21,12 @@ export class DartCard extends Component {
                 <p className="card-text text-secondary">
         Number of days completed : <strong>{this.props.user.dart}</strong>
                 </p>
-             <button className="btn btn-outline-success">Continue</button>
+             <a href="/dart"><button className="btn btn-outline-success">Continue</button></a>
             </div>
             
         </div>
+    }
+    </div>
         )
     }
 }

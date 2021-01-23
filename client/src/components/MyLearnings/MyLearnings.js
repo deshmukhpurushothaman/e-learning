@@ -18,10 +18,11 @@ class MyLearnings extends Component {
     }
 
     init = (userId) => {
-    
+        //console.log("Get Single USer1234")
         const token = isAuthenticated().token;
         getSingleUser(userId, token).then((data) => {
           //this.setState({ loading: false });
+          //console.log("Get Single USer")
           if (data.error) {
             //this.setState({ redirectToSignin: true });
             console.log(data.error)
@@ -39,16 +40,17 @@ class MyLearnings extends Component {
     }
     render() {
         const { user } = this.state
-        //console.log("My learning2", user)
+        
+        console.log("My learning2", user)
         return (
             <div className="back-mylearn">
                 <Menu/>
                 <div className="container-fluid d-flex justify-content-center mt-5">
                 <h2 className="enrol"><strong>Enrolled Courses</strong></h2>
                     </div>
-                    {user.length === ""  ? 
+                    {user === ""    ? 
                     
-                    "Loading..."                    
+                    "Loading..."                 
                     
                    : 
                 <div className="container-fluid d-flex justify-content-center">

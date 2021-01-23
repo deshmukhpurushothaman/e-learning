@@ -40,6 +40,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import Menu from "../../core/Menu"
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -459,7 +460,9 @@ function QuestionsTab(props) {
 
 
   return (
-       <div style={{marginTop:'85px', marginBottom: '7px', paddingBottom:"30px"}}>
+    <div>
+      <Menu />
+       <div style={{marginTop:'140px', marginBottom: '7px', paddingBottom:"30px"}}>
          <Dialog
               open={open}
               onClose={handleClose}
@@ -589,6 +592,7 @@ function QuestionsTab(props) {
                   </Grid>        
               </Grid>           
            </Grid>
+       </div>
        </div>
   );
 }

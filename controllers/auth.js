@@ -27,7 +27,7 @@ exports.roleLabel = (role) => {
 //@Usage -  Will be used when application accepts Username and Password from User
 exports.signup = async (req, res, next) => {
   const userExists = await User.findOne({ email: req.body.email });
-  console.log("user exists", req.body.email)
+  //console.log("user exists", req.body.email)
 
   if (userExists)
     return res.status(403).json({
@@ -43,7 +43,7 @@ exports.signup = async (req, res, next) => {
 //@Usage -  Will be used when application accepts Username and Password from User
 exports.signin = (req, res) => {
   const { email, password } = req.body;
-  console.log("Signin", req.body)
+  //console.log("Signin", req.body)
   User.findOne({ email }, (err, user) => {
     if (err || !user) {
       return res.status(401).json({
@@ -100,7 +100,7 @@ exports.socialLogin = async (req, res) => {
   } = ticket.getPayload();
 
   if (email_verified) {
-    console.log(`email_verified > ${email_verified}`);
+    //console.log(`email_verified > ${email_verified}`);
     const email_address = email;
     const username = name;
     const photo = picture;
@@ -117,7 +117,7 @@ exports.socialLogin = async (req, res) => {
         req.profile = user;
         await user.save();
 
-        console.log(this.roleLabel(user.role));
+        //console.log(this.roleLabel(user.role));
         // generate a token with user id and secret
         const token = jwt.sign(
           {
@@ -180,9 +180,9 @@ exports.isAdmin = (req, res, next) => {
   if (!req.body.email)
       return res.status(400).json({ message: "No Email in request body" });
 
-  console.log("forgot password finding user with that email");
+  //console.log("forgot password finding user with that email");
   const { email } = req.body;
-  console.log("signin req.body", email);
+  //console.log("signin req.body", email);
   // find the user based on email
   User.findOne({ email }, (err, user) => {
       // if err or no user
@@ -190,7 +190,7 @@ exports.isAdmin = (req, res, next) => {
           return res.status("401").json({
               error: "User with that email does not exist!"
           });
-          console.log("Forgot Passowrd",user)
+          //console.log("Forgot Passowrd",user)
       // generate a token with user id and secret
       const token = jwt.sign(
           { _id: user._id, iss: "NODEAPI" },
@@ -215,7 +215,7 @@ exports.isAdmin = (req, res, next) => {
           if (err) {
               return res.json({ message: err });
           } else {
-              console.log("Send Email", user)
+              //console.log("Send Email", user)
               sendEmail(emailData);
               return res.status(200).json({
                   message: `Email has been sent to ${email}. Follow the instructions to reset your password.`
@@ -239,7 +239,7 @@ exports.resetPassword = (req, res) => {
   User.findOne({ resetPasswordLink: resetPasswordLink }, (err, user) => {
       // if err or no user
       if (err || !user){
-        console.log("No resetlink found")
+        //console.log("No resetlink found")
           return res.status("401").json({
               error: "Invalid Link!"
           });}
@@ -248,10 +248,10 @@ exports.resetPassword = (req, res) => {
           password: newPassword,
           resetPasswordLink: ""
       };
-      console.log("Found User", user.name)
+      //console.log("Found User", user.name)
       user = _.extend(user, updatedFields);
       user.updated = Date.now();
-      console.log("Updated User", user)
+      //console.log("Updated User", user)
       user.save((err, result) => {
           if (err) {
               return res.status(400).json({

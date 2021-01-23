@@ -54,6 +54,8 @@ const Dashboard= () => {
     // eslint-disable-next-line
   }, []);
     return (
+      <div>
+        <Menu />
         <div class="box">
           {user === undefined ? 
           <>
@@ -68,7 +70,7 @@ const Dashboard= () => {
           
           <div id="overlay">
             
-            <div class="image">
+            <div class="image mt-5">
                 {/* <div class="trick">
                 </div> */}
               {/* <img src={avatar}></img> */}
@@ -105,6 +107,7 @@ const Dashboard= () => {
           </div>
         </div>
 }
+</div>
 </div>
     )
 }

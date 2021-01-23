@@ -53,12 +53,14 @@ clickSubmit = event => {
           
           if(data.error){ 
             this.setState({error: data.error})
-            alert("Message sent to the organization.");
+            
       }else {
               this.setState({ name:"", email:"", phone:"", text: "", redirectToProfile: true})
           }
       });
-    
+      
+      alert("Message sent to the organization.")
+      window.location.reload();
 };
 
 

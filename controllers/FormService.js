@@ -18,7 +18,7 @@ module.exports = {
         const quiz = await FormModel.find({course: courseName})
         .sort({day: 1})
         .then((quiz) => {
-            console.log("Quiz By ID",quiz)
+            //console.log("Quiz By ID",quiz)
             res.status(200).json(quiz);
           })
           .catch((err) => {
@@ -54,18 +54,18 @@ module.exports = {
             //         error: "Issue in parsing Input",
             //     });
             //     }
-            console.log("Data", req.body)
+            //console.log("Data", req.body)
             var data = {
                 course: req.body.course,
                 day: req.body.day,
                 link: req.body.link,
                 questions: req.body.question
             }
-             console.log("Create form hit", data)
+             //console.log("Create form hit", data)
 
             var newForm = new FormModel(data)
             await newForm.save().then((docs)=>{
-                 console.log("Saved Form")
+                 //console.log("Saved Form")
                 // UserModel.updateOne(
                 //     {_id: data.createdBy },
                 //     { $push: { createdForms: docs._id}})
@@ -77,7 +77,7 @@ module.exports = {
                 //     docs
                 // );
             })
-            console.log("Form created")
+            //console.log("Form created")
 
         } catch (error) {
             res.send(error)
@@ -86,9 +86,9 @@ module.exports = {
 
     updateQuiz : async(req, res)=>{
         quizId = req.params.quizId;
-        console.log("Quiz Id Update", quizId)
+        //console.log("Quiz Id Update", quizId)
         try {
-            console.log("Update Bidy", req.body)
+            //console.log("Update Bidy", req.body)
             var data = {
                 course: req.body.course,
                 day: req.body.day,
@@ -96,7 +96,7 @@ module.exports = {
                 questions: req.body.question
             }
             
-            console.log("Data", data)
+            //console.log("Data", data)
 
             // form.save((err, result) => {
             //     if (err) {
@@ -113,13 +113,13 @@ module.exports = {
             
 
             FormModel.findOneAndUpdate( { _id: quizId }, data ,{new: true} ,(err, result)=>{
-                console.log("Find Model Method")
+                //console.log("Find Model Method")
                 if(err){
-                    console.log("Error in Updating")
+                    //console.log("Error in Updating")
                     res.status(500).send(err)
                 }
                 else{
-                    console.log("Update Method", result)
+                    //console.log("Update Method", result)
                     res.status(200).json(result)
                 }
             });
@@ -147,18 +147,18 @@ module.exports = {
             var quizId = req.params.quizId;
             //var userId = req.params.userId;
 
-            console.log("QuizId",quizId);
+            //console.log("QuizId",quizId);
             //console.log(userId);
 
             FormModel.findOne({_id: quizId}).then(async(form)=>{ 
-                 console.log("Form found",form);
+                 //console.log("Form found",form);
                 if(form== null){
                     res.status(404).send('Form not found or already deleted');
                 } else { 
                     if(form){
                         form.remove(function(err) {
                             if(err) { return res.status(500).send(err) }
-                            console.log('Form deleted');                 
+                            //console.log('Form deleted');                 
                             return res.status(202).send("Form Deleted")
                           });                       
                     } 
